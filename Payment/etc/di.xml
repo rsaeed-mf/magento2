@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="MyFatoorah\Payment\Api\WebHookInterface" type="MyFatoorah\Payment\Model\WebHook"/>
+
+    <!-- Payment Method Facade configuration -->
+    <virtualType name="MyFatoorahPaymentFacade" type="Magento\Payment\Model\Method\Adapter">
+        <arguments>
+            <argument name="code" xsi:type="const">MyFatoorah\Payment\Gateway\Config\Config::CODE</argument>
+            <argument name="formBlockType" xsi:type="string">Magento\Payment\Block\Form</argument>
+            <argument name="infoBlockType" xsi:type="string">MyFatoorah\Payment\Block\Info</argument>
+            <argument name="valueHandlerPool" xsi:type="object">MyFatoorahPaymentValueHandlerPool</argument>
+            <argument name="commandPool" xsi:type="object">MyFatoorahPaymentCommandPool</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Configuration reader -->
+    <type name="MyFatoorah\Payment\Gateway\Config\Config">
+        <arguments>
+            <argument name="methodCode" xsi:type="const">MyFatoorah\Payment\Gateway\Config\Config::CODE</argument>
+        </arguments>
+    </type>
+
+    <!-- Commands infrastructure -->
+    <virtualType name="MyFatoorahPaymentCommandPool" type="Magento\Payment\Gateway\Command\CommandPool">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="initialize" xsi:type="string">MyFatoorahPaymentInitializeCommand</item>
+                <item name="refund" xsi:type="string">MyFatoorahPaymentRefundCommand</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Initialize command -->
+    <virtualType name="MyFatoorahPaymentInitializeCommand" type="Magento\Payment\Gateway\Command\GatewayCommand">
+        <arguments>
+            <argument name="requestBuilder" xsi:type="object">MyFatoorahPaymentInitializationRequest</argument>
+            <argument name="transferFactory" xsi:type="object">MyFatoorah\Payment\Gateway\Http\DummyTransferFactory</argument> <!-- [Payment/Model/Method/Adapter][executeCommand]ERROR!Cannot instantiate interface Magento\Payment\Gateway\Http\TransferFactoryInterface if empty -->
+            <argument name="client" xsi:type="object">MyFatoorah\Payment\Gateway\Http\Client\DummyClient</argument> <!-- [Payment/Model/Method/Adapter][executeCommand]ERROR getting command!Cannot instantiate interface Magento\Payment\Gateway\Http\ClientInterface if empty-->
+        </arguments>
+    </virtualType>
+
+    <!-- Refund command -->
+    <virtualType name="MyFatoorahPaymentRefundCommand" type="Magento\Payment\Gateway\Command\GatewayCommand">
+        <arguments>
+            <argument name="requestBuilder" xsi:type="object">MyFatoorahPaymentRefundRequest</argument>
+            <argument name="transferFactory" xsi:type="object">MyFatoorah\Payment\Gateway\Http\DummyTransferFactory</argument> <!-- [Payment/Model/Method/Adapter][executeCommand]ERROR!Cannot instantiate interface Magento\Payment\Gateway\Http\TransferFactoryInterface if empty -->
+            <argument name="handler" xsi:type="object">MyFatoorah\Payment\Model\MyFatoorahPayment</argument>
+            <argument name="client" xsi:type="object">MyFatoorah\Payment\Gateway\Http\Client\RefundClient</argument> <!-- [Payment/Model/Method/Adapter][executeCommand]ERROR getting command!Cannot instantiate interface Magento\Payment\Gateway\Http\ClientInterface if empty-->
+        </arguments>
+    </virtualType>
+
+    <!-- Initialization Request -->
+    <virtualType name="MyFatoorahPaymentInitializationRequest" type="Magento\Payment\Gateway\Request\BuilderComposite">
+        <arguments>
+            <argument name="builders" xsi:type="array">
+                <item name="transaction" xsi:type="string">MyFatoorah\Payment\Gateway\Request\InitializationRequest</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Refund Request -->
+    <virtualType name="MyFatoorahPaymentRefundRequest" type="Magento\Payment\Gateway\Request\BuilderComposite">
+        <arguments>
+            <argument name="builders" xsi:type="array">
+                <item name="transaction" xsi:type="string">MyFatoorah\Payment\Gateway\Request\RefundRequest</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="MyFatoorah\Payment\Gateway\Request\InitializationRequest">
+        <arguments>
+            <argument name="config" xsi:type="object">MyFatoorah\Payment\Gateway\Config\Config</argument>
+        </arguments>
+    </type>
+
+    <!-- Value handlers infrastructure -->
+    <virtualType name="MyFatoorahPaymentValueHandlerPool" type="Magento\Payment\Gateway\Config\ValueHandlerPool">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="default" xsi:type="string">MyFatoorahPaymentConfigValueHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="MyFatoorahPaymentConfigValueHandler" type="Magento\Payment\Gateway\Config\ConfigValueHandler">
+        <arguments>
+            <argument name="configInterface" xsi:type="object">MyFatoorah\Payment\Gateway\Config\Config</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="MyFatoorah\Payment\Block\Info">
+        <arguments>
+            <argument name="config" xsi:type="object">MyFatoorah\Payment\Gateway\Config\Config</argument>
+        </arguments>
+    </type>
+
+    <type name="\Magento\Sales\Model\Order\Email\Sender\OrderSender">
+        <plugin name="MyFatoorah-OrderSender-Plugin" type="MyFatoorah\Payment\Plugin\OrderSenderPlugin"/>
+    </type>
+    <type name="\Magento\Sales\Model\CronJob\CleanExpiredOrders">
+        <plugin name="MyFatoorah-CleanExpiredOrders-Plugin" type="MyFatoorah\Payment\Plugin\CleanExpiredOrdersPlugin"/>
+    </type>
+    
+    <type name="Magento\CatalogInventory\Api\RegisterProductSaleInterface">
+        <plugin name="process_register_products_sale" type="MyFatoorah\Payment\Plugin\StockManagementPlugin"/>
+    </type>
+    
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="RetrieveOrderData" xsi:type="object">MyFatoorah\Payment\Console\Command\RetrieveOrderData</item>
+            </argument>
+        </arguments>
+    </type>
+
+</config>
