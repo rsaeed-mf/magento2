@@ -1,11 +1,6 @@
 <?xml version="1.0"?>
-<!--
-/**
- * Copyright © 2013-2017 Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
--->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- ===================================================================================================================================================================================== -->       
     <preference for="MyFatoorah\Payment\Api\WebHookInterface" type="MyFatoorah\Payment\Model\WebHook"/>
 
     <!-- Payment Method Facade configuration -->
@@ -117,5 +112,10 @@
             </argument>
         </arguments>
     </type>
+    <!-- ===================================================================================================================================================================================== -->           
+    <type name="Magento\Payment\Model\MethodList">
+        <plugin name="list_only_myfatoorah_payment" type="MyFatoorah\Shipping\Plugin\MethodListPlugin" sortOrder="10" disabled="false"  />
+    </type>
+    <!-- ===================================================================================================================================================================================== -->       
 
 </config>

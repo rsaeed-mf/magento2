@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
     <default>
+        <!-- ===================================================================================================================================================================================== -->
         <payment>
             <myfatoorah_payment>
                 <model>MyFatoorahPaymentFacade</model>
@@ -34,5 +34,18 @@
                 <can_deny_payment>1</can_deny_payment>
             </myfatoorah_payment>
         </payment>
+        <!-- ===================================================================================================================================================================================== -->       
+        <carriers>
+            <myfatoorah_shipping>
+                <active>1</active>
+                <sallowspecific>0</sallowspecific>
+                <model>MyFatoorah\Shipping\Model\Carrier\Shipping</model>
+                <title>MyFatoorah</title>
+                <name>Shipping</name>
+                <specificerrmsg>MyFatoorah Shipping Methods for API ver2</specificerrmsg>
+                <is_testing>1</is_testing>
+            </myfatoorah_shipping>
+        </carriers>
+        <!-- ===================================================================================================================================================================================== -->
     </default>
 </config>
