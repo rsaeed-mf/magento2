@@ -20,7 +20,7 @@
         "files": ["registration.php"],
         "psr-4": {
             "MyFatoorah\\Payment\\": "Payment/",
-            "MyFatoorah\\Shipping\\": "Shipping/",
+            "MyFatoorah\\Shipping\\": "Shipping/"
         }
     },
     "minimum-stability": "dev"
