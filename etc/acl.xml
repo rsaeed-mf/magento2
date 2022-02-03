@@ -8,7 +8,7 @@
                     <resource id="Magento_Sales::sales_operation" title="Operations" sortOrder="10">
                         <resource id="Magento_Sales::sales_order"  title="Orders" sortOrder="10">
                             <resource id="Magento_Sales::actions" title="Actions" sortOrder="10">
-                                <resource id="MyFatoorah_Payment::uncancel" title="Un-Cancel" sortOrder="10" />
+                                <resource id="MyFatoorah_Gateway::uncancel" title="Un-Cancel" sortOrder="10" />
                             </resource>
                         </resource>
                     </resource>

@@ -9,11 +9,11 @@
     <type name="Magento\Checkout\Model\CompositeConfigProvider">
         <arguments>
             <argument name="configProviders" xsi:type="array">
-                <item name="myfatoorah_payment_config_provider" xsi:type="object">MyFatoorah\Payment\Model\Ui\ConfigProvider</item>
+                <item name="myfatoorah_payment_config_provider" xsi:type="object">MyFatoorah\Gateway\Model\Ui\ConfigProvider</item>
             </argument>
         </arguments>
     </type>
-    <type name="MyFatoorah\Payment\Block\Info">
+    <type name="MyFatoorah\Gateway\Block\Info">
         <arguments>
             <argument name="data" xsi:type="array">
                 <item xsi:type="string" name="is_secure_mode">1</item>

@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
     <system>
-        <!-- ===================================================================================================================================================================================== -->
         <section id="payment">
             <group id="myfatoorah_payment" translate="label" sortOrder="100" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>MyFatoorah Payment</label>
@@ -16,7 +15,7 @@
                 <field id="countryMode" translate="label" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>vendor's Country</label>
                     <tooltip>Select your MyFatoorah vendor's country. After that, use the API token key that belongs to this country.</tooltip>
-                    <source_model>MyFatoorah\Payment\Model\Config\Source\VendorCountry</source_model>
+                    <source_model>MyFatoorah\Gateway\Model\Config\Source\VendorCountry</source_model>
                     <validate>required-entry</validate>
                 </field>
                 <field id="is_testing" translate="label" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
@@ -36,7 +35,7 @@
                 <field id="list_options" translate="label" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>List Payment Options</label>
                     <tooltip>MyFatoorah is the default gateway. You can select one of below payment gateway which the user can checkout directly from it.</tooltip>
-                    <source_model>MyFatoorah\Payment\Model\Config\Source\GatewayAction</source_model>
+                    <source_model>MyFatoorah\Gateway\Model\Config\Source\GatewayAction</source_model>
                 </field>
                 
                 <field id="myfatoorah_approved_order_status" translate="label" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
@@ -49,7 +48,7 @@
                 <field id="webhookSecretKey" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Webhook Secret Key</label>
                 </field>
-                <!--
+<!--
                 <field id="allowspecific" translate="label" type="allowspecific" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Payment From Applicable Countries</label>
                     <source_model>Magento\Payment\Model\Config\Source\Allspecificcountries</source_model>
@@ -76,7 +75,6 @@
                 </field>
             </group>
         </section>
-        <!-- ===================================================================================================================================================================================== -->
         <section id="carriers" translate="label" type="text" sortOrder="320" showInDefault="1" showInWebsite="1" showInStore="1">
             <group id="myfatoorah_shipping" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>MyFatoorah Shipping API v2</label>
@@ -94,12 +92,12 @@
                 
                 <field id="methods" translate="label" type="multiselect" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                     <label>Method Name</label>
-                    <source_model>MyFatoorah\Shipping\Model\Config\Source\Methods</source_model>
+                    <source_model>MyFatoorah\Gateway\Model\Config\Source\Methods</source_model>
                     <can_be_empty>1</can_be_empty>
                 </field>               
                 
                 
-                <!--                <field id="apiKey" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+<!--                <field id="apiKey" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>API Key</label>
                     <validate>required-entry</validate>
                 </field>
@@ -143,6 +141,5 @@
                 
             </group>
         </section>
-        <!-- ===================================================================================================================================================================================== -->
     </system>
 </config>

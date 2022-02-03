@@ -1,0 +1,98 @@
+/* COMMON STYLES
+   ========================================================================== */
+.mf-grey-text {
+    color: #888484;
+}
+.mf-row-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-inline-end: 2rem;
+    text-align: start;
+}
+
+
+/* CONTAINERS
+   ========================================================================== */
+.mf-payment-methods-container {
+    max-width: 45rem;
+
+    background-color: #fff;
+
+    border: 0.063rem solid #e2e5e8;
+    border-radius: 0.5rem;
+    box-shadow: 0.063rem 0.063rem 0.625rem 0 rgba(144, 144, 144, 0.5);
+
+    padding: 0.5rem 2rem;
+    margin: 0.5rem auto;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* PAYMENT METHODS SECTION
+   ========================================================================== */
+.mf-card-container {
+    border: 0.063rem solid #e3e3e8;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.063rem 0.188rem 0 rgba(0, 0, 0, 0.1), 0 0.063rem 0.125rem 0 rgba(0, 0, 0, 0.06);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin: 0.3rem 0rem;
+    padding: 0.3rem 1.95rem;
+
+    cursor: pointer;
+
+    background-color: #fff;
+}
+.mf-card-container:hover {
+    box-shadow: rgba(45, 35, 66, 0.4) 0 0.063rem 0.125rem, rgba(45, 35, 66, 0.3) 0 0.188rem 0.25rem 0.063rem, #D6D6E7 0 0.063rem 0 inset;
+    transform: translateY(-0.125rem);
+    background-color: white;
+    border: 0.063rem solid #e3e3e8;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.063rem 0.188rem 0 rgba(0, 0, 0, 0.1), 0 0.063rem 0.125rem 0 rgba(0, 0, 0, 0.06);
+}
+.mf-payment-logo {
+    margin-inline-end: 1rem;
+    width: 3.5rem;
+}
+.mf-payment-text {
+    color: #40a7cf;
+    font-size: 1.125rem;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    margin: 1rem 0;
+}
+
+
+/* DIVIDER
+   ========================================================================== */
+.mf-divider{
+    width: 100%;
+    text-align: center;
+    border-bottom: 0.063rem solid #c7c7c7;
+    line-height: 0.1rem;
+    margin: 1.25rem 0;
+}
+
+.mf-divider span {
+    color: #888484;
+    background: #fff;
+    padding:0 0.625rem;
+}
+
+
+/* MEDIA QUERIES
+   ========================================================================== */
+/*phone (480px - 400 - 320px)*/
+@media (max-width: 395px) {
+    .mf-card-title{
+        display: none;
+    }
+}
+/* ========================================================================== */

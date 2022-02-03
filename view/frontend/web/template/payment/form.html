@@ -1,0 +1,79 @@
+<div class="payment-method" data-bind="css: {'_active': (getCode() == isChecked())}">
+    <div class="payment-method-title field choice">
+        <input type="radio"
+               name="payment[method]"
+               class="radio"
+               data-bind="attr: {'id': getCode()}, value: getCode(), checked: isChecked, click: selectPaymentMethod, visible: isRadioButtonVisible()"/>
+        <label class="label" data-bind="attr: {'for': getCode()}">
+            <span data-bind="text: getTitle()"></span>
+        </label>
+    </div>
+
+    <div class="payment-method-content">
+        <!-- ko foreach: getRegion('messages') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <!--/ko-->
+        <div class="payment-method-billing-address">
+            <!-- ko foreach: $parent.getRegion(getBillingAddressFormName()) -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </div>
+        <div class="checkout-agreements-block">
+            <!-- ko foreach: $parent.getRegion('before-place-order') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </div>
+
+
+        <div class="field required" data-bind="if: isContainerVisible()">
+            <div class="mf-payment-methods-container">
+                <p class="mf-grey-text"><!-- ko i18n: 'How would you like to pay?' --><!-- /ko --></p>
+
+
+                <!-- ko if: isSectionVisible('cards') -->
+                <div class="mf-divider"><!-- ko i18n: 'Pay With' --><!-- /ko --></div>
+
+
+                <!-- ko foreach: paymentMethods['cards'] -->
+                <div class="mf-card-container" data-bind="click: function() { $parent.placeOrderCard($data.PaymentMethodId)}">
+                    <div class="mf-row-container">
+                        <img class="mf-payment-logo" data-bind="attr: {src: $data.ImageUrl, title: $parent.getCardTitle($data), alt: $parent.getCardTitle($data)}"/>
+                        <h5 class="mf-payment-text mf-card-title"><!-- ko text: $parent.getCardTitle($data) --><!-- /ko --></h5>
+                    </div>
+                    <h5 class="mf-payment-text">
+                        <!-- ko text: $data.GatewayData['GatewayTotalAmount'] --><!-- /ko -->&nbsp;<!-- ko text: $data.GatewayData['GatewayCurrency'] --><!-- /ko -->
+                    </h5>
+                </div>
+                <!-- /ko --><!-- /ko -->
+
+
+                <!-- ko if: isSectionVisible('form') -->
+                <div class="mf-divider">
+                    <span>
+                        <!-- ko if: isSectionVisible('cards') -->
+                        <!-- ko text: $t('Or ') --><!-- /ko -->
+                        <!-- /ko -->
+                        <!-- ko text: $t('Insert Card Details') --><!-- /ko -->
+                    </span>
+                </div>
+
+                <div id="mf-card-element" data-bind="value: getForm()"></div>
+                <!-- /ko -->
+
+            </div>
+        </div>
+
+        <div class="actions-toolbar">
+            <div class="primary">
+                <button class="action primary checkout"
+                        type="submit"
+                        data-bind="
+                        click: placeOrderForm,
+                        attr: {title: $t('Place Order')}
+                        ">
+                    <span data-bind="i18n: 'Place Order'"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
