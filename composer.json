@@ -1,7 +1,7 @@
 {
     "name": "myfatoorah/gateway",
     "description": "MyFatoorah is a flexible and open-source payment gateway for Magento2. Sell anything, anywhere, and make your way.",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "type": "magento2-module",
     "require": {
         "php": "^7.4.0",
