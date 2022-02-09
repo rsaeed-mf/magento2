@@ -16,6 +16,7 @@
         "OSL-3.0"
     ],
     "autoload": {
+        "files": ["src/registration.php"],
         "psr-4": {
             "MyFatoorah\\Gateway\\": "src"
         }
